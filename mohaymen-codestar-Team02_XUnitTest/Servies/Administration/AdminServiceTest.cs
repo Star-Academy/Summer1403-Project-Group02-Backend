@@ -107,7 +107,7 @@ public class AdminServiceTest
             });
         // Act
         var result = await _sut.Register(
-            new User(){UserId = 8,Username = "mamad"}, "password");
+            new User() { UserId = 8, Username = "mamad" }, "password");
 
         // Assert
         Assert.Equal(ApiResponseType.Created, result.Type);

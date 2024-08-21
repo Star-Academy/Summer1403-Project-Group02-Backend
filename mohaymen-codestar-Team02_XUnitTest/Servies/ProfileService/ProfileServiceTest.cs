@@ -140,7 +140,7 @@ namespace mohaymen_codestar_Team02_XUnitTest.Servies.ProfileService
         {
             // Arrange
             var updateUserDto = new UpdateUserDto
-                { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
+            { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
             _cookieService.GetCookieValue().Returns(string.Empty);
 
             // Act
@@ -155,7 +155,7 @@ namespace mohaymen_codestar_Team02_XUnitTest.Servies.ProfileService
         {
             // Arrange
             var updateUserDto = new UpdateUserDto
-                { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
+            { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
             _cookieService.GetCookieValue().Returns("validToken");
             _tokenService.GetUserNameFromToken().Returns("nonexistentUser");
 
@@ -175,7 +175,7 @@ namespace mohaymen_codestar_Team02_XUnitTest.Servies.ProfileService
             _tokenService.GetUserNameFromToken().Returns("existingUser");
 
             var updateUserDto = new UpdateUserDto
-                { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
+            { FirstName = "NewFirstName", LastName = "NewLastName", Email = "newemail@example.com" };
 
             // Act
             var result = await _sut.UpdateUser(updateUserDto);

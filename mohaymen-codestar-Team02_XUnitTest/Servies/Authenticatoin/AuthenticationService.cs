@@ -72,7 +72,8 @@ public class AuthenticationServiceTests
 
         // Assert
         Assert.Equal(ApiResponseType.BadRequest, result.Type);
-        Assert.Null(result.Data); }
+        Assert.Null(result.Data);
+    }
 
     [Fact]
     public async Task Login_ShouldReturnBadRequest_WhenPasswordIsIncorrect()

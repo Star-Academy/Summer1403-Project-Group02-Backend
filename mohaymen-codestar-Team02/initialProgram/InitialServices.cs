@@ -25,8 +25,8 @@ public class InitialServices
         _context = context;
         _passwordService = passwordService;
     }
-    
-    public static void ConfigureServices(IServiceCollection services , WebApplicationBuilder builder)
+
+    public static void ConfigureServices(IServiceCollection services, WebApplicationBuilder builder)
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -48,7 +48,7 @@ public class InitialServices
 
         services.AddAutoMapper(typeof(AutoMapperProfile));
         services.AddAuthorization();
-        
+
         ConfigureAuthentication(services);
     }
 
@@ -108,11 +108,11 @@ public class InitialServices
                 RoleType = "DataAdmin"
             }
         };
-        
-        
+
+
         foreach (var role in roles)
         {
-            
+
             if (!_context.Roles.Any(r => r.RoleType == role.RoleType))
             {
                 _context.Roles.Add(role);
@@ -135,14 +135,14 @@ public class InitialServices
             admin.Salt = passwordSalt;
 
             var role = _context.Roles.FirstOrDefault(r => r.RoleType.ToLower().Equals(RoleType.SystemAdmin.ToString().ToLower()));
-            
+
             UserRole userRole = new UserRole() { RoleId = role.RoleId, UserId = admin.UserId, Role = role, User = admin };
             _context.UserRoles.Add(userRole);
-            
+
             _context.Users.Add(admin);
             _context.SaveChanges();
         }
     }
-    
-    
+
+
 }
