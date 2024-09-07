@@ -12,6 +12,24 @@ public class RoleRepository : IRoleRepository
     {
         _serviceProvider = serviceProvider;
     }
+    
+    
+    public async Task<bool> IsRoleMatching(IEnumerable<string> roles)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+        foreach (var role in roles)
+        {
+            var exists = await context.Roles.AnyAsync(dbRole => dbRole.RoleType.ToLower() == role.ToLower());
+            if (!exists)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public async Task<IEnumerable<Role>> GetAllRoles()
     {
@@ -26,4 +44,12 @@ public class RoleRepository : IRoleRepository
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         return await context.Roles.FirstOrDefaultAsync(u => u.RoleId == id);
     }
+    
+    public async Task<Role> GetRole(string roleType)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+        return await context.Roles.FirstOrDefaultAsync(u => u.RoleType.ToLower() == roleType.ToLower());
+    }
+
 }
