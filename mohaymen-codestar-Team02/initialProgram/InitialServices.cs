@@ -2,6 +2,10 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.IEdgeRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.IVertexRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository;
@@ -21,6 +25,8 @@ using mohaymen_codestar_Team02.Services.PasswordHandller;
 using mohaymen_codestar_Team02.Services.StoreData;
 using mohaymen_codestar_Team02.Services.StoreData.Abstraction;
 using mohaymen_codestar_Team02.Services.TokenService;
+using WebApplication15.Repositories;
+using WebApplication15.Services;
 using AuthenticationService = mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.AuthenticationService;
 
 namespace mohaymen_codestar_Team02.initialProgram;
@@ -67,7 +73,11 @@ public class InitialServices
             .AddScoped<IAnalystService, AnalystService>()
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IRoleRepository, RoleRepository>()
-            .AddScoped<IUserRoleRepository, UserRoleRepository>();
+            .AddScoped<IUserRoleRepository, UserRoleRepository>()
+            .AddScoped<IDatasetRepositry, DatasetRepository>()
+            .AddScoped<IEdgeRepository, EdgeRepository>()
+            .AddScoped<IVertexRepository, VertexRepository>()
+            .AddScoped<IDatasetService, DatasetService>();
         services.AddAutoMapper(typeof(AutoMapperProfile));
         services.AddAuthorization();
 

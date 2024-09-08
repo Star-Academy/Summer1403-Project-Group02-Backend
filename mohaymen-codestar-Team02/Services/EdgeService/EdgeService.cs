@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository.Abstraction;
 using mohaymen_codestar_Team02.Data;
 using mohaymen_codestar_Team02.Dto;
 using mohaymen_codestar_Team02.Dto.GraphDTO;
@@ -8,15 +9,13 @@ namespace mohaymen_codestar_Team02.Services;
 
 public class EdgeService : IEdgeService
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IMapper _mapper;
-
-    public EdgeService(IServiceProvider serviceProvider, IMapper mapper)
+    private readonly IEdgeRepository _edgeRepository;
+    public EdgeService(IEdgeRepository edgeRepository)
     {
-        _serviceProvider = serviceProvider;
-        _mapper = mapper;
+        _edgeRepository = edgeRepository;
     }
 
+    /*
     public List<GetAttributeDto> GetEdgeAttributes(long edgeEntityId)
     {
         var scope = _serviceProvider.CreateScope();
@@ -27,21 +26,11 @@ public class EdgeService : IEdgeService
             ?.EdgeAttributes;
 
         return edgeAttribuite.Select(va => _mapper.Map<GetAttributeDto>(va)).ToList();
-    }
+    }*/
 
-    public Dictionary<string, Dictionary<string, string>> GetAllEdges(long dataSetId,
-        string sourceEdgeIdentifierFieldName,
-        string destinationEdgeIdentifierFieldName, Dictionary<string, string> edgeAttributeVales)
+    public async Task<Dictionary<string, Dictionary<string, string>>> FilterEdges(long dataSetId, Dictionary<string, string> edgeAttributeVales)
     {
-        var scope = _serviceProvider.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-
-        var edgeSet = context.DataSets.Where(ds => ds.DataGroupId == dataSetId).Include(ds => ds.EdgeEntity)
-            .ThenInclude(ee => ee.EdgeAttributes).ThenInclude(ev => ev.EdgeValues).FirstOrDefault();
-
-        var edgeRecords = edgeSet.EdgeEntity.EdgeAttributes.Select(ea => ea.EdgeValues).SelectMany(v => v)
-            .GroupBy(v => v.ObjectId);
-
+        var edgeRecords = await _edgeRepository.GetDatasetVertices(dataSetId);
         var validEdgeRecords = edgeRecords
             .Where(group =>
                 edgeAttributeVales.All(attr =>
@@ -52,8 +41,10 @@ public class EdgeService : IEdgeService
         return res;
     }
 
+    
     public DetailDto GetEdgeDetails(string objId)
     {
+        /*
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         var validValue = context.EdgeValues.Where(value => value.ObjectId.ToLower() == objId.ToLower()).ToList();
@@ -62,5 +53,7 @@ public class EdgeService : IEdgeService
             result.AttributeValue[context.EdgeAttributes.Find(value.EdgeAttributeId).Name] = value.StringValue;
 
         return result;
+        */
+        throw new NotImplementedException();
     }
 }

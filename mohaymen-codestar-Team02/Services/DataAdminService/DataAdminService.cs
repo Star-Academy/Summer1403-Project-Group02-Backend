@@ -93,23 +93,26 @@ public class DataAdminService
         return new ServiceResponse<List<GetDataGroupDto>>(dataGroupDtos, ApiResponseType.Success, "");
     }
 
-    public async Task<ServiceResponse<DisplayGraphDto>> DisplayGeraphData(long databaseId,
+    public async Task<ServiceResponse<GetGraphDto>> DisplayGeraphData(long databaseId,
         string sourceEdgeIdentifierFieldName,
         string destinationEdgeIdentifierFieldName, string vertexIdentifierFieldName)
     {
-        var vertices = _vertexService.GetAllVertices(databaseId, vertexIdentifierFieldName, new Dictionary<string, string>(){});
+        /*
+        var vertices = _vertexService.FilterVertices(databaseId, vertexIdentifierFieldName, new Dictionary<string, string>(){});
         var edges = _edgeService.GetAllEdges(databaseId, sourceEdgeIdentifierFieldName,
             destinationEdgeIdentifierFieldName, new Dictionary<string, string>(){});
         var graph = _graphService.GetGraph(vertices, edges, vertexIdentifierFieldName, sourceEdgeIdentifierFieldName,
             destinationEdgeIdentifierFieldName);
 
-        var dto = new DisplayGraphDto()
+        var dto = new GetGraphDto()
         {
             Vertices = graph.vertices,
             Edges = graph.edges
         };
-        return new ServiceResponse<DisplayGraphDto>(dto, ApiResponseType.Success,
+        return new ServiceResponse<GetGraphDto>(dto, ApiResponseType.Success,
             Resources.GraphFetchedSuccessfullyMessage);
+            */
+        throw new NotImplementedException();
     }
 
     public ServiceResponse<DetailDto> GetVertexDetail(string objectId)

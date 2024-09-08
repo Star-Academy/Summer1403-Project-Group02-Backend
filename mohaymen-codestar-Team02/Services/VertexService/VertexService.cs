@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.IEdgeRepository.Abstraction;
 using mohaymen_codestar_Team02.Data;
 using mohaymen_codestar_Team02.Dto;
 using mohaymen_codestar_Team02.Dto.GraphDTO;
@@ -9,15 +10,15 @@ namespace mohaymen_codestar_Team02.Services;
 
 public class VertexService : IVertexService
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IMapper _mapper;
+    
+    private readonly IVertexRepository _vertexRepository;
 
-    public VertexService(IServiceProvider serviceProvider, IMapper mapper)
+    public VertexService(IVertexRepository vertexRepository)
     {
-        _serviceProvider = serviceProvider;
-        _mapper = mapper;
+        _vertexRepository = vertexRepository;
     }
 
+    /*
     public List<GetAttributeDto> GetVertexAttributes(long vertexEntityId)
     {
         var scope = _serviceProvider.CreateScope();
@@ -29,20 +30,11 @@ public class VertexService : IVertexService
 
         return vertexAttribuite.Select(va => _mapper.Map<GetAttributeDto>(va)).ToList();
     }
-
-    public Dictionary<string, Dictionary<string, string>> GetAllVertices(long dataSetId,
-        string vertexIdentifierFieldName, Dictionary<string, string> vertexAttributeVales)
+*/
+    public async Task<Dictionary<string, Dictionary<string, string>>> FilterVertices(long dataSetId, Dictionary<string, string> vertexAttributeVales)
     {
-        using var scope = _serviceProvider.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-
-        var dataSet = context.DataSets.Where(ds => ds.DataGroupId == dataSetId).Include(ds => ds.VertexEntity)
-            .ThenInclude(ve => ve.VertexAttributes).ThenInclude(vv => vv.VertexValues)
-            .FirstOrDefault();
-
-        var vertexRecords = dataSet.VertexEntity.VertexAttributes.Select(a => a.VertexValues).SelectMany(v => v)
-            .GroupBy(v => v.ObjectId);
-
+        var vertexRecords = await _vertexRepository.GetDatasetVertices(dataSetId);
+        
         var validVertexRecords = vertexRecords
             .Where(group =>
                 vertexAttributeVales.All(attr =>
@@ -56,6 +48,7 @@ public class VertexService : IVertexService
 
     public DetailDto GetVertexDetails(string objId)
     {
+        /*
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         var validValue = context.VertexValues.Where(value => value.ObjectId.ToLower() == objId.ToLower()).ToList();
@@ -64,10 +57,7 @@ public class VertexService : IVertexService
             result.AttributeValue[context.VertexAttributes.Find(value.VertexAttributeId).Name] = value.StringValue;
 
         return result;
-    }
-
-    public List<Vertex> GetAllVertices(string datasetName)
-    {
+        */
         throw new NotImplementedException();
     }
 }
