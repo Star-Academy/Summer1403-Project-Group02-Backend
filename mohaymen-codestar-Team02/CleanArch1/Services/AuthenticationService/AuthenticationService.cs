@@ -1,14 +1,15 @@
 using AutoMapper;
 using mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRoleRepository.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
 using mohaymen_codestar_Team02.Dto.Permission;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
-using mohaymen_codestar_Team02.newDir;
 using mohaymen_codestar_Team02.Services;
 using mohaymen_codestar_Team02.Services.CookieService;
 using mohaymen_codestar_Team02.Services.PasswordHandller;
-using WebApplication15.Dtos;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService;
 

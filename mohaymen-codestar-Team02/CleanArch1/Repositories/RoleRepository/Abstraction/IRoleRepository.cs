@@ -1,6 +1,6 @@
 using mohaymen_codestar_Team02.Models;
 
-namespace mohaymen_codestar_Team02.newDir;
+namespace mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository.Abstraction;
 
 public interface IRoleRepository
 {

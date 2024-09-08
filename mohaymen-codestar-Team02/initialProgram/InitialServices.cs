@@ -2,22 +2,26 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.RoleRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRoleRepository;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRoleRepository.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
 using mohaymen_codestar_Team02.Data;
 using mohaymen_codestar_Team02.Mapper;
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Services;
-using mohaymen_codestar_Team02.Services.Administration;
 using mohaymen_codestar_Team02.Services.AnalystService;
-using mohaymen_codestar_Team02.Services.Authenticatoin;
 using mohaymen_codestar_Team02.Services.CookieService;
 using mohaymen_codestar_Team02.Services.DataAdminService;
-using mohaymen_codestar_Team02.Services.DynamicService;
 using mohaymen_codestar_Team02.Services.FileReaderService;
 using mohaymen_codestar_Team02.Services.PasswordHandller;
-using mohaymen_codestar_Team02.Services.ProfileService;
 using mohaymen_codestar_Team02.Services.StoreData;
 using mohaymen_codestar_Team02.Services.StoreData.Abstraction;
 using mohaymen_codestar_Team02.Services.TokenService;
+using AuthenticationService = mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.AuthenticationService;
 
 namespace mohaymen_codestar_Team02.initialProgram;
 
@@ -46,9 +50,7 @@ public class InitialServices
             options.UseNpgsql(cs));
 
         services
-            .AddScoped<IAuthenticationService, AuthenticationService>()
-            .AddScoped<IAdminService, AdminService>()
-            .AddScoped<IProfileService, ProfileService>()
+            .AddScoped<IAuthenticateionService, AuthenticationService>()
             .AddScoped<ITokenService, TokenService>()
             .AddScoped<ICookieService, CookieService>()
             .AddScoped<IPasswordService, PasswordService>()
@@ -59,12 +61,13 @@ public class InitialServices
             .AddScoped<IFileReader, ReadCsvFile>()
             .AddScoped<IDataAdminService, DataAdminService>()
             .AddScoped<IDisplayDataService, DisplayService>()
-            .AddScoped<IModelBuilder, ModelBuilderr>()
-            .AddScoped<IObjectBuilder, ObjectBuilder>()
             .AddScoped<IEdgeService, EdgeService>()
             .AddScoped<IVertexService, VertexService>()
             .AddScoped<IGraphService, GraphService>()
-            .AddScoped<IAnalystService, AnalystService>();
+            .AddScoped<IAnalystService, AnalystService>()
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRoleRepository, RoleRepository>()
+            .AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddAutoMapper(typeof(AutoMapperProfile));
         services.AddAuthorization();
 

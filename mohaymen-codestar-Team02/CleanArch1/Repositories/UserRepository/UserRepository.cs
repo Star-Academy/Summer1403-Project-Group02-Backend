@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
 using mohaymen_codestar_Team02.Data;
 using mohaymen_codestar_Team02.Models;
 
-namespace mohaymen_codestar_Team02.newDir;
+namespace mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository;
 
 public class UserRepository : IUserRepository
 {
