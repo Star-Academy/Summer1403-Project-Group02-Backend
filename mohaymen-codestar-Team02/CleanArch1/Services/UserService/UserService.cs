@@ -1,34 +1,16 @@
-using AutoMapper;
-using mohaymen_codestar_Team02.Data;
-using mohaymen_codestar_Team02.Dto.Role;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
+using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
-using mohaymen_codestar_Team02.Services;
-using mohaymen_codestar_Team02.Services.CookieService;
+using UpdateUserDto = mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos.UpdateUserDto;
 
-namespace mohaymen_codestar_Team02.newDir;
+namespace mohaymen_codestar_Team02.CleanArch1.Services.UserService;
 
-public class SystemManagmentService : ISystemManagmentService
+public class UserService : IUserService
 {
-
-    private readonly ICookieService _cookieService;
-    private readonly ITokenService _tokenService;
-    private readonly IUserRepository _userRepository;
-    private readonly IRoleRepository _roleRepository;
-    private readonly IUserRoleRepository _userRoleRepository;
-    private readonly IMapper _mapper;
-
-    public SystemManagmentService(ICookieService cookieService, ITokenService tokenService, IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository, IUserRoleRepository userRoleRepository)
-    {
-        _cookieService = cookieService;
-        _tokenService = tokenService;
-        _userRepository = userRepository;
-        _mapper = mapper;
-        _roleRepository = roleRepository;
-        _userRoleRepository = userRoleRepository;
-    }
-
-    public async Task<ServiceResponse<IEnumerable<GetUserDto>?>> GetUsersPaginated(int pageNumber)
+    
+    /*
+         public async Task<ServiceResponse<IEnumerable<GetUserDto>?>> GetUsersPaginated(int pageNumber)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
@@ -212,5 +194,30 @@ public class SystemManagmentService : ISystemManagmentService
         return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success,
             Resources.RoleRemovedSuccessfullyMessage);
 
+    }
+     */
+    public Task<ServiceResponse<List<GetUserDto>>> GetUsersPaginated(int pageNumber)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetUserDto>> GetSingleUser(long userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetUserDto?>> DeleteUser(long userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetUserDto?>> UpdateUser(UpdateUserDto updateUserDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetUserDto>> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,16 +1,18 @@
-using System.Security.Claims;
 using AutoMapper;
-using mohaymen_codestar_Team02.Data;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
+using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
 using mohaymen_codestar_Team02.Dto.Permission;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
+using mohaymen_codestar_Team02.newDir;
 using mohaymen_codestar_Team02.Services;
 using mohaymen_codestar_Team02.Services.CookieService;
 using mohaymen_codestar_Team02.Services.PasswordHandller;
+using WebApplication15.Dtos;
 
-namespace mohaymen_codestar_Team02.newDir;
+namespace mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationService : IAuthenticateionService
 {
 
     private readonly IPasswordService _passwordService;
@@ -32,6 +34,7 @@ public class AuthenticationService : IAuthenticationService
         _userRoleRepository = userRoleRepository;
     }
 
+    /*
     public async Task<ServiceResponse<GetUserDto?>> Register(User user, string password, List<Role> roles)
     {
         var token = _cookieService.GetCookieValue();
@@ -165,5 +168,30 @@ public class AuthenticationService : IAuthenticationService
 
         return permissions;
     }
+    */
 
+    public Task<ServiceResponse<GetUserDto?>> Register(RegisterDto registerDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetUserDto?>> Login(LoginDto login)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ServiceResponse<string?> Logout()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<GetPermissionDto>> GetPermission()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ServiceResponse<string>> GetAuthorized()
+    {
+        throw new NotImplementedException();
+    }
 }

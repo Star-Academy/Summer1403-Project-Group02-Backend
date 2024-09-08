@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication15.Dtos.UserDtos;
+namespace mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
 
 public class ChangePasswordDto
 {

@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication15.Dtos;
-using WebApplication15.Services;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
+using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
 
-namespace WebApplication15.Controllers;
+namespace mohaymen_codestar_Team02.CleanArch1.Controllers.AuthenticationController;
 
 public class AuthenticationController : ControllerBase
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly IAuthenticateionService _authenticationService;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(IAuthenticateionService authenticationService)
     {
         _authenticationService = authenticationService;
     }

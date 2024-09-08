@@ -2,7 +2,7 @@ using mohaymen_codestar_Team02.Dto.Role;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
 
-namespace WebApplication15.Services;
+namespace mohaymen_codestar_Team02.CleanArch1.Services.RoleService.Abstraction;
 
 public interface IRoleService
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication15.Dtos;
+namespace mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
 
 public class LoginDto
 {

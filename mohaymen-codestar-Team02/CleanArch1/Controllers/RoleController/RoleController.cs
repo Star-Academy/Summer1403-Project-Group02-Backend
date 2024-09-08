@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication15.Services;
+using mohaymen_codestar_Team02.CleanArch1.Services.RoleService.Abstraction;
 
-namespace WebApplication15.Controllers;
+namespace mohaymen_codestar_Team02.CleanArch1.Controllers.RoleController;
 
 public class RoleController : ControllerBase
 {

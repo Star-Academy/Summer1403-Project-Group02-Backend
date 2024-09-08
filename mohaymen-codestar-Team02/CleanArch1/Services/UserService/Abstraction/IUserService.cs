@@ -1,9 +1,9 @@
+using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
-using WebApplication15.Dtos.UserDtos;
-using UpdateUserDto = WebApplication15.Dtos.UserDtos.UpdateUserDto;
+using UpdateUserDto = mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos.UpdateUserDto;
 
-namespace WebApplication15.Services;
+namespace mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 
 public interface IUserService
 {

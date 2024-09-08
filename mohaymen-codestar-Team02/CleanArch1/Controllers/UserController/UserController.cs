@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication15.Dtos.UserDtos;
-using WebApplication15.Services;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
+using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 
-namespace WebApplication15.Controllers;
+namespace mohaymen_codestar_Team02.CleanArch1.Controllers.UserController;
 
 public class UserController : ControllerBase
 {
