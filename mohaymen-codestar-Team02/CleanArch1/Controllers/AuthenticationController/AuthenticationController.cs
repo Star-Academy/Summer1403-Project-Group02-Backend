@@ -14,7 +14,7 @@ public class AuthenticationController : ControllerBase
     }
 
     // sys admin
-    [HttpPost("Authentication/Register")] // Todo accessed by system admin // use [controller]/[Action] format
+    [HttpPost("auth/register")] // Todo accessed by system admin // use [controller]/[Action] format
     public async Task<IActionResult> Register([FromBody] RegisterDto request)
     { // better to pass user or fields separately
         var response = await _authenticationService.Register(request);
@@ -22,7 +22,7 @@ public class AuthenticationController : ControllerBase
     } 
     
     // sys admin, data admin, analysis
-    [HttpPost("Authentication/Login")]
+    [HttpPost("auth/login")]
     public async Task<IActionResult> Login([FromBody] LoginDto request)
     {
         var response = await _authenticationService.Login(request);
@@ -30,7 +30,7 @@ public class AuthenticationController : ControllerBase
     }
 
     // sys admin, data admin, analysis
-    [HttpPost("Authentication/Logout")]
+    [HttpPost("auth/logout")]
     public IActionResult Logout()
     {
         var response = _authenticationService.Logout();
@@ -38,14 +38,14 @@ public class AuthenticationController : ControllerBase
     }
     
     // dk
-    [HttpGet("Authentication/GetPermissions")]  // permissions or permission
+    [HttpGet("auth/permissions")]  // permissions or permission
     public async Task<IActionResult> GetPermission()
     {
         var response = await _authenticationService.GetPermission();
         return StatusCode((int)response.Type, response);
     }
 
-    [HttpGet]  // why doesn't have url  // dk
+    [HttpGet("auth/status")]  // why doesn't have url  // dk
     public async Task<IActionResult> GetAuthorized()
     {
         var response = await _authenticationService.GetAuthorized();
