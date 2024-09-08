@@ -7,7 +7,6 @@ namespace mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository;
 
 public class UserRepository : IUserRepository
 {
-
     private readonly IServiceProvider _serviceProvider;
 
     public UserRepository(IServiceProvider serviceProvider)
@@ -29,14 +28,20 @@ public class UserRepository : IUserRepository
     {
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-        return await context.Users.FirstOrDefaultAsync(u => u.UserId == id);
+        return await context.Users.Where(u => u.UserId == id)
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<User?> GetUserByUsername(string username)
     {
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-        return await context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
+        return await context.Users.Where(u => u.Username.ToLower() == username.ToLower())
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<User> AddUser(User user)
@@ -45,14 +50,17 @@ public class UserRepository : IUserRepository
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         var result = await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
-        return result.Entity; 
+        return result.Entity;
     }
-    
+
     public async Task<User?> UpdateUser(User user) //
     {
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-        var result = await context.Users.FirstOrDefaultAsync(e => e.UserId == user.UserId);
+        var result = await context.Users.Where(u => u.UserId == user.UserId)
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync();
 
         if (result != null)
         {
@@ -72,7 +80,11 @@ public class UserRepository : IUserRepository
     {
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-        var result = await context.Users.FirstOrDefaultAsync(u => u.UserId == id);
+        var result = await context.Users.Where(u => u.UserId == id)
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync();
+
         if (result != null)
         {
             context.Users.Remove(result);
@@ -87,5 +99,4 @@ public class UserRepository : IUserRepository
         return await context.Users.AnyAsync(x =>
             username != null && x.Username != null && x.Username.ToLower() == username.ToLower());
     }
-
 }

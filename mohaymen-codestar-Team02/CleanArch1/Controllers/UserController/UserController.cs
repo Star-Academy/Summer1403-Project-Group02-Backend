@@ -37,7 +37,7 @@ public class UserController : ControllerBase
     [HttpPut("users/{userId}")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto request, long userId)
     {
-        var response = await _userService.UpdateUser(request);
+        var response = await _userService.UpdateUser(request, userId);
         return StatusCode((int)response.Type, response);
     }
     
