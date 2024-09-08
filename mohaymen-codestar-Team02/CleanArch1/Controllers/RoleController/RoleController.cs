@@ -19,14 +19,14 @@ public class RoleController : ControllerBase
         return StatusCode((int)response.Type, response);
     }
 
-    [HttpPut("roles/{userId, roleId}")] // post or put
+    [HttpPut("roles/{userId}/{roleId}")] // post or put
     public async Task<IActionResult> AddUserRole(long userId, long roleId) // better to get from url or dto?
     {
         var response = await _roleService.AddUserRole(userId, roleId);
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpDelete("roles/{userId, roleId}")]
+    [HttpDelete("roles/{userId}/{roleId}")]
     public async Task<IActionResult> DeleteUserRole(long userId, long roleId)
     {
         var response = await _roleService.DeleteUserRole(userId, roleId);
