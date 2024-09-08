@@ -81,7 +81,7 @@ public class DatasetService : IDatasetService
     public async Task<ServiceResponse<GetDitailedDatasetDto>> GetSingleDataset(long datasetId)
     {
         var dataset = await _datasetRepositry.GetSingleDataset(datasetId);
-        var datasetDto = _mapper.Map<GetDitailedDatasetDto>(dataset);  // map or make new
+        var datasetDto = _mapper.Map<GetDitailedDatasetDto>(dataset);
         return new ServiceResponse<GetDitailedDatasetDto>(datasetDto, ApiResponseType.Success, "");
     }
     
