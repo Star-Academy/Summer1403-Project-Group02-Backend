@@ -1,4 +1,5 @@
 using AutoMapper;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset.Attributes;
 using mohaymen_codestar_Team02.Dto;
 using mohaymen_codestar_Team02.Dto.Role;
 using mohaymen_codestar_Team02.Dto.User;
@@ -6,6 +7,7 @@ using mohaymen_codestar_Team02.Dto.UserDtos;
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Models.VertexEAV;
+using WebApplication15.Dtos.Dataset;
 
 namespace mohaymen_codestar_Team02.Mapper;
 
@@ -35,5 +37,19 @@ public class AutoMapperProfile : Profile
 
         CreateMap<EdgeAttribute, GetAttributeDto>();
         CreateMap<VertexAttribute, GetAttributeDto>();
+        CreateMap<DataGroup, GetDatasetPreviewDto>();
+        CreateMap<DataGroup, GetDitailedDatasetDto>()
+            .ForMember(dto => dto.EdgeEntity, opt => opt.MapFrom(src => src.EdgeEntity))
+            .ForMember(dto => dto.VertexEntity, opt => opt.MapFrom(src => src.VertexEntity))
+            .ForMember(dto => dto.EdgeAttributes, opt => opt.MapFrom(src => src.EdgeEntity.EdgeAttributes.Select(ea => new GetEdgeAttributeDto
+            {
+                Id = ea.Id,
+                Name = ea.Name
+            })))
+            .ForMember(dto => dto.VertexAttributes, opt => opt.MapFrom(src => src.VertexEntity.VertexAttributes.Select(va => new GetVertexAttributeDto
+            {
+                Id = va.Id,
+                Name = va.Name
+            })));
     }
 }
