@@ -31,10 +31,10 @@ public class TokenService : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public string? GetUserNameFromToken()
+    public string? GetUserId()
     {
         var user = _httpContextAccessor.HttpContext?.User;
-        var usernameClaim = user?.FindFirst(ClaimTypes.Name);
+        var usernameClaim = user?.FindFirst(ClaimTypes.NameIdentifier);
         return usernameClaim?.Value;
     }
 

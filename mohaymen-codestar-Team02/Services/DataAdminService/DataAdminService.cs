@@ -52,7 +52,7 @@ public class DataAdminService
                 return new ServiceResponse<string>(null, ApiResponseType.Unauthorized,
                     Resources.UnauthorizedMessage);
 
-            var userName = _tokenService.GetUserNameFromToken();
+            var userName = _tokenService.GetUserId();
             if (string.IsNullOrEmpty(edgeEntityName) || string.IsNullOrEmpty(graphName) ||
                 string.IsNullOrEmpty(vertexEntityName))
                 return new ServiceResponse<string>(string.Empty, ApiResponseType.BadRequest,

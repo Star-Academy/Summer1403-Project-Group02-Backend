@@ -6,6 +6,6 @@ namespace mohaymen_codestar_Team02.Services;
 public interface ITokenService
 {
     public string CreateToken(List<Claim> claims);
-    public string? GetUserNameFromToken();
+    public string? GetUserId();
     public string? GetRolesFromToken();
 }

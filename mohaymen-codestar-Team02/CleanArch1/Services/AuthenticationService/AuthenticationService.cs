@@ -35,8 +35,8 @@ public class AuthenticationService : IAuthenticateionService
         _userRoleRepository = userRoleRepository;
     }
 
-    /*
-    public async Task<ServiceResponse<GetUserDto?>> Register(User user, string password, List<Role> roles)
+    
+    /*public async Task<ServiceResponse<GetUserDto?>> Register(User user, string password, List<Role> roles)
     {
         var token = _cookieService.GetCookieValue();
             if (string.IsNullOrEmpty(token))
@@ -153,6 +153,7 @@ public class AuthenticationService : IAuthenticateionService
         return new ServiceResponse<string>(user.Username, ApiResponseType.Success,
             Resources.AuthorizedMessage);
     }
+    */
     
     
     private async Task<HashSet<Permission>> UnionPermissions(string[]? splitRoles)
@@ -169,10 +170,44 @@ public class AuthenticationService : IAuthenticateionService
 
         return permissions;
     }
-    */
 
-    public Task<ServiceResponse<GetUserDto?>> Register(RegisterDto registerDto)
+    public async Task<ServiceResponse<GetUserDto?>> Register(RegisterDto registerDto)
     {
+        /*var token = _cookieService.GetCookieValue();
+        if (string.IsNullOrEmpty(token))
+            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
+            
+        var adminId = _tokenService.GetUserId();
+        var admin = await _userRepository.GetUserById(long.Parse(adminId));
+        if (admin is null)
+            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
+            
+        if (await _userRepository.GetUserByUsername(registerDto.Username) is null)
+            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Conflict, Resources.UserAlreadyExistsMessage);
+
+        if (!_passwordService.ValidatePassword(registerDto.Password))
+            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
+                Resources.InvalidPasswordMessage);
+
+        _passwordService.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
+        user.PasswordHash = passwordHash;
+        user.Salt = passwordSalt;
+
+        await _userRepository.AddUser(user);
+
+        foreach (var role in roles)
+            _userRoleRepository.AddUserRole(new UserRole
+            {
+                RoleId = role.RoleId,
+                UserId = user.UserId
+            });
+        
+        //var foundUser = await _userRepository.GetUser(user.UserId);
+        var userDto = _mapper.Map<GetUserDto>(user);
+
+        return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Created,
+            Resources.UserCreatedSuccessfullyMessage);*/
+        
         throw new NotImplementedException();
     }
 
