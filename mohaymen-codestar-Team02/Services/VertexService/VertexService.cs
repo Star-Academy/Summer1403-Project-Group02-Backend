@@ -17,7 +17,13 @@ public class VertexService : IVertexService
     {
         _vertexRepository = vertexRepository;
     }
-
+    
+    /*
+    public Task<> AddVertex(long datasetId, string vertexEntityName, IEnumerable<string> vertexAttributes, IEnumerable<IEnumerable<string>> vertexValues)
+    {
+        
+    }
+*/
     /*
     public List<GetAttributeDto> GetVertexAttributes(long vertexEntityId)
     {
@@ -45,6 +51,7 @@ public class VertexService : IVertexService
 
         return res;
     }
+
 
     public DetailDto GetVertexDetails(string objId)
     {

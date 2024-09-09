@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
 using mohaymen_codestar_Team02.Dto;
-using WebApplication15.Dtos.Dataset;
 using WebApplication15.Services;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Controllers.DatasetController;
@@ -28,8 +28,8 @@ public class DatasetController : ControllerBase
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpGet("Dataset/GetDataset{datasetId}")]
-    public async Task<IActionResult> GetDataset(long datasetId)
+    [HttpGet("Dataset/GetDataset{datasetId}")]  // dataset name, edge entity name, edge att name and so for vertices, values
+    public async Task<IActionResult> GetDataset(long datasetId) // from query
     {
         var response = await _datasetService.GetSingleDataset(datasetId);
         return StatusCode((int)response.Type, response);
@@ -42,7 +42,21 @@ public class DatasetController : ControllerBase
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpGet("Dataset/GetGraph{datasetId}")]
+    [HttpGet("Dataset/GetSingleVertex/{vertexId}")]
+    public async Task<IActionResult> GetSingleVertex(string vertexId)
+    {
+        var respond = await _datasetService.GetSingleVertex(vertexId);
+        return StatusCode((int)respond.Type, respond);
+    }       
+
+    [HttpGet("Dataset/GetSingleEdge/{edgeId}")]
+    public async Task<IActionResult> GetSingleEdge(string edgeId)
+    {
+        var respond = await _datasetService.GetSingleEdge(edgeId);
+        return StatusCode((int)respond.Type, respond);
+    }
+
+    [HttpGet("Dataset/GetGraph{datasetId}")]  // dataset name, edge entity name, edge att name and so for vertices, values
     public async Task<IActionResult> GetDataset(long datasetId, [FromQuery]string vertexIdentifier, [FromQuery]string sourceIdentifier, [FromQuery]string targetIdentifier) // from query
     {
         var response = await _datasetService.GetGraph(datasetId, vertexIdentifier, sourceIdentifier, targetIdentifier);

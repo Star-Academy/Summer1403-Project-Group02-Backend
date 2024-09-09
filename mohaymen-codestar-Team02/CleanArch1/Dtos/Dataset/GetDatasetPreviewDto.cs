@@ -1,6 +1,4 @@
-using mohaymen_codestar_Team02.Models;
-
-namespace WebApplication15.Dtos.Dataset;
+namespace mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
 
 public class GetDatasetPreviewDto
 {
