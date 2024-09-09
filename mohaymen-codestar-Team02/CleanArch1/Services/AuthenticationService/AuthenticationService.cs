@@ -18,15 +18,16 @@ namespace mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService;
 public class AuthenticationService : IAuthenticateionService
 {
     private readonly IPasswordService _passwordService;
-    private readonly IUserRepository _userRepository;
     private readonly ICookieService _cookieService;
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
+    private readonly IUserRepository _userRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IUserRoleRepository _userRoleRepository;
 
-    public AuthenticationService(IPasswordService passwordService, IUserRepository userRepository,
-        ICookieService cookieService, ITokenService tokenService, IMapper mapper, IRoleRepository roleRepository,
+    public AuthenticationService(IPasswordService passwordService,
+        ICookieService cookieService, ITokenService tokenService, IMapper mapper, IUserRepository userRepository,
+        IRoleRepository roleRepository,
         IUserRoleRepository userRoleRepository)
     {
         _passwordService = passwordService;
@@ -82,7 +83,7 @@ public class AuthenticationService : IAuthenticateionService
         user.PasswordHash = passwordHash;
         user.Salt = passwordSalt;
         await _userRepository.AddUser(user);
-        
+
         var foundUser = await _userRepository.GetUserByUsername(user.Username);
         if (foundUser is null)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
@@ -91,13 +92,14 @@ public class AuthenticationService : IAuthenticateionService
         {
             var foundRole = await _roleRepository.GetRole(roleId);
             if (foundRole is null)
-                return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.RoleNotFoundMessage);
+                return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
+                    Resources.RoleNotFoundMessage);
 
             if (await _userRoleRepository.GetUserRole(foundUser.UserId, foundRole.RoleId) is not null)
                 return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
                     Resources.RoleAlreadyAssignedMessage);
-            
-            UserRole userRole = new UserRole()
+
+            var userRole = new UserRole()
             {
                 RoleId = roleId,
                 UserId = user.UserId
@@ -111,7 +113,7 @@ public class AuthenticationService : IAuthenticateionService
         return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Created,
             Resources.UserCreatedSuccessfullyMessage);
     }
-    
+
     public async Task<ServiceResponse<GetUserDto?>> Login(LoginDto loginDto)
     {
         if (string.IsNullOrEmpty(loginDto.Username) || string.IsNullOrEmpty(loginDto.Password))
@@ -129,7 +131,7 @@ public class AuthenticationService : IAuthenticateionService
             new(ClaimTypes.NameIdentifier, user.UserId.ToString())
         };
 
-        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.Role.RoleType)));
+        claims.AddRange(user.UserRoles?.Select(ur => new Claim(ClaimTypes.Role, ur.Role.RoleType)) ?? new List<Claim>());
 
         _cookieService.CreateCookie(_tokenService.CreateToken(claims));
 
