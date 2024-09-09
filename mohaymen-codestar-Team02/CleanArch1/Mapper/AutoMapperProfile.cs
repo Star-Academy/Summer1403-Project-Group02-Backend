@@ -9,7 +9,7 @@ using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Models.VertexEAV;
 
-namespace mohaymen_codestar_Team02.Mapper;
+namespace mohaymen_codestar_Team02.CleanArch1.Mapper;
 
 public class AutoMapperProfile : Profile
 {
@@ -35,8 +35,6 @@ public class AutoMapperProfile : Profile
         CreateMap<EdgeEntity, GetEdgeEntityDto>();
         CreateMap<VertexEntity, GetVertexEntityDto>();
 
-        CreateMap<EdgeAttribute, GetAttributeDto>();
-        CreateMap<VertexAttribute, GetAttributeDto>();
         CreateMap<DataGroup, GetDatasetPreviewDto>();
         CreateMap<DataGroup, GetDitailedDatasetDto>()
             .ForMember(dto => dto.EdgeEntity, opt => opt.MapFrom(src => src.EdgeEntity))

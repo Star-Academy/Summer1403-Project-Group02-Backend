@@ -106,4 +106,16 @@
     <data name="UserUpdateSuccessfulyMessage" xml:space="preserve">
         <value>User Update Successfuly</value>
     </data>
+    <data name="DataModelFetchedSuccesfully" xml:space="preserve">
+        <value>Data model fetched successfully</value>
+    </data>
+    <data name="FilteredDataModelFetchedSuccessfuly" xml:space="preserve">
+        <value>Filtered DataModel Fetched Successfuly</value>
+    </data>
+    <data name="DatasetsGotSuccessfully" xml:space="preserve">
+        <value>Datasets Got Successfully</value>
+    </data>
+    <data name="SingleDataetGotSuccessfully" xml:space="preserve">
+        <value>Single DataetGot Successfully</value>
+    </data>
 </root>

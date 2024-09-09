@@ -1,4 +1,4 @@
-namespace mohaymen_codestar_Team02.Models;
+namespace mohaymen_codestar_Team02.CleanArch1.Models;
 
 public class CustomRegexPattern
 {

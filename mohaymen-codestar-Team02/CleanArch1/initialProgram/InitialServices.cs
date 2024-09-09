@@ -2,6 +2,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using mohaymen_codestar_Team02.CleanArch1.GraphService;
+using mohaymen_codestar_Team02.CleanArch1.Mapper;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.DatasetRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository.Abstraction;
@@ -21,15 +23,11 @@ using mohaymen_codestar_Team02.CleanArch1.Services.RoleService.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.UserService;
 using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 using mohaymen_codestar_Team02.Data;
-using mohaymen_codestar_Team02.Mapper;
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Services;
-using mohaymen_codestar_Team02.Services.AnalystService;
 using mohaymen_codestar_Team02.Services.CookieService;
-using mohaymen_codestar_Team02.Services.DataAdminService;
 using mohaymen_codestar_Team02.Services.EdgeService;
 using mohaymen_codestar_Team02.Services.FileReaderService;
-using mohaymen_codestar_Team02.Services.GraphService;
 using mohaymen_codestar_Team02.Services.PasswordHandller;
 using mohaymen_codestar_Team02.Services.StoreData;
 using mohaymen_codestar_Team02.Services.StoreData.Abstraction;
@@ -77,12 +75,9 @@ public class InitialServices
             .AddScoped<IVertexStorer, VertexStorerCsv>()
             .AddScoped<IStorHandler, StoreDataService>()
             .AddScoped<IFileReader, ReadCsvFile>()
-            .AddScoped<IDataAdminService, DataAdminService>()
-            .AddScoped<IDisplayDataService, DisplayService>()
             .AddScoped<IEdgeService, EdgeService>()
             .AddScoped<IVertexService, VertexService>()
             .AddScoped<IGraphService, GraphService>()
-            .AddScoped<IAnalystService, AnalystService>()
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IRoleRepository, RoleRepository>()
             .AddScoped<IUserRoleRepository, UserRoleRepository>()

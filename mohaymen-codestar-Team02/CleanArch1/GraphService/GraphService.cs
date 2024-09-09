@@ -1,6 +1,7 @@
 using mohaymen_codestar_Team02.Models;
+using mohaymen_codestar_Team02.Services;
 
-namespace mohaymen_codestar_Team02.Services.GraphService;
+namespace mohaymen_codestar_Team02.CleanArch1.GraphService;
 
 public class GraphService : IGraphService
 {
