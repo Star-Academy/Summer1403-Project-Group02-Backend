@@ -2,15 +2,16 @@ using AutoMapper;
 using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
 using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset.Attributes;
 using mohaymen_codestar_Team02.CleanArch1.Services.DatasetService;
+using mohaymen_codestar_Team02.CleanArch1.Services.DatasetService.Abstraction;
 using mohaymen_codestar_Team02.Dto;
 using mohaymen_codestar_Team02.Dto.GraphDTO;
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Models.VertexEAV;
 using mohaymen_codestar_Team02.Services;
+using mohaymen_codestar_Team02.Services.VertexService.Abstraction;
 using NSubstitute;
 using WebApplication15.Repositories;
-using WebApplication15.Services;
 
 namespace mohaymen_codestar_Team02_XUnitTest.CleanArch1;
 
@@ -144,7 +145,7 @@ public class DatasetServiceTest
         }, ApiResponseType.Success, "");
         
         // Act
-        var actual = await _sut.GetSubGraph(dto);
+        var actual = await _sut.GetFilteredDataModel(dto);
         
         // Assert
         Assert.Equivalent(expected, actual);
@@ -342,7 +343,7 @@ public class DatasetServiceTest
         }, ApiResponseType.Success, "");
         
         // Act
-        var actual = await _sut.GetGraph(1, "VAtt1", "EAtt1", "EAtt2");
+        var actual = await _sut.GetDataModel(1, "VAtt1", "EAtt1", "EAtt2");
         
         // Assert
         Assert.Equivalent(expected, actual);

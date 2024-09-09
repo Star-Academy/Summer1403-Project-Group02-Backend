@@ -2,6 +2,7 @@ using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository.Abstraction;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Services;
+using mohaymen_codestar_Team02.Services.EdgeService;
 using NSubstitute;
 
 namespace mohaymen_codestar_Team02_XUnitTest.CleanArch1;

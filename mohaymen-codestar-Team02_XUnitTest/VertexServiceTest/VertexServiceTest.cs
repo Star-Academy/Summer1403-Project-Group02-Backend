@@ -1,6 +1,8 @@
 using mohaymen_codestar_Team02.CleanArch1.Repositories.IEdgeRepository.Abstraction;
 using mohaymen_codestar_Team02.Models.VertexEAV;
 using mohaymen_codestar_Team02.Services;
+using mohaymen_codestar_Team02.Services.VertexService;
+using mohaymen_codestar_Team02.Services.VertexService.Abstraction;
 using NSubstitute;
 
 namespace mohaymen_codestar_Team02_XUnitTest.CleanArch1;

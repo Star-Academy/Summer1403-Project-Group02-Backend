@@ -1,20 +1,15 @@
+using mohaymen_codestar_Team02.CleanArch1.GraphService;
 using mohaymen_codestar_Team02.Models;
-using mohaymen_codestar_Team02.Services;
-using NSubstitute;
 
-namespace mohaymen_codestar_Team02_XUnitTest.Services.GraphServiceTest;
+namespace mohaymen_codestar_Team02_XUnitTest.CleanArch1;
 
 public class GraphServiceTest
 {
     private GraphService _sut;
-    private readonly IVertexService _vertexService;
-    private readonly IEdgeService _edgeService;
 
     public GraphServiceTest()
     {
-        _vertexService = Substitute.For<IVertexService>();
-        _edgeService = Substitute.For<IEdgeService>();
-        _sut = new GraphService(_vertexService, _edgeService);
+        _sut = new GraphService();
     }
 
     [Fact]

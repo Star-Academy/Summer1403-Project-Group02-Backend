@@ -14,56 +14,56 @@ public class DatasetController : ControllerBase
         _datasetService = datasetService;
     }
 
-    [HttpPost("Dataset/AddDataset")]
+    [HttpPost("dataset")]
     public async Task<IActionResult> AddDataSet([FromForm] AddDatasetDto request)
     {
         var response = await _datasetService.AddDataset(request);
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpGet("Dataset/GetDatasets")]
+    [HttpGet("dataset")]
     public async Task<IActionResult> GetAllDatasets()
     {
         var response = await _datasetService.GetAllDatasets();
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpGet("Dataset/GetDataset{datasetId}")]  
+    [HttpGet("dataset/{datasetId}")]  
     public async Task<IActionResult> GetDataset(long datasetId) 
     {
         var response = await _datasetService.GetSingleDataset(datasetId);
         return StatusCode((int)response.Type, response);
     }
 
-    [HttpDelete("Dataset/DeleteDataset{datasetId}")]
+    [HttpDelete("dataset/{datasetId}")]
     public async Task<IActionResult> DeleteDataset(long datasetId)
     {
         var response = await _datasetService.DeleteDataset(datasetId);
         return StatusCode((int)response.Type, response);
     }
     
-    [HttpGet("Dataset/GetSingleVertex/{vertexId}")]
+    [HttpGet("dataset/{vertexId}")]
     public async Task<IActionResult> GetSingleVertex(string vertexId)
     {
         var respond = await _datasetService.GetSingleVertex(vertexId);
         return StatusCode((int)respond.Type, respond);
     }       
 
-    [HttpGet("Dataset/GetSingleEdge/{edgeId}")]
+    [HttpGet("dataset/{edgeId}")]
     public async Task<IActionResult> GetSingleEdge(string edgeId)
     {
         var respond = await _datasetService.GetSingleEdge(edgeId);
         return StatusCode((int)respond.Type, respond);
     }
 
-    [HttpGet("Dataset/GetGraph{datasetId}")]
+    [HttpGet("dataset/show/{datasetId}")]
     public async Task<IActionResult> GetModel(long datasetId, [FromQuery]string vertexIdentifier, [FromQuery]string sourceIdentifier, [FromQuery]string targetIdentifier) // from query
     {
         var response = await _datasetService.GetDataModel(datasetId, vertexIdentifier, sourceIdentifier, targetIdentifier);
         return StatusCode((int)response.Type, response);
     }
 
-    [HttpPost("Dataset/FilterDataset")]
+    [HttpPost("dataset/filter")]
     public async Task<IActionResult> GetFilteredDataModel([FromBody]GetSubGraphDto request)
     {
         var response = await _datasetService.GetFilteredDataModel(request);
