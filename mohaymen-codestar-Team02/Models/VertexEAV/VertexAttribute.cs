@@ -6,6 +6,10 @@ namespace mohaymen_codestar_Team02.Models.VertexEAV;
 
 public class VertexAttribute
 {
+    public VertexAttribute()
+    {
+        
+    }
     public VertexAttribute(string name, long vertexEntityId)
     {
         Name = name;

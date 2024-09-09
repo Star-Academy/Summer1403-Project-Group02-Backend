@@ -6,6 +6,7 @@ using mohaymen_codestar_Team02.Dto.GraphDTO;
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Services.CookieService;
 using mohaymen_codestar_Team02.Services.StoreData.Abstraction;
+using mohaymen_codestar_Team02.Services.VertexService.Abstraction;
 
 namespace mohaymen_codestar_Team02.Services.DataAdminService;
 
@@ -58,7 +59,7 @@ public class DataAdminService
                 return new ServiceResponse<string>(string.Empty, ApiResponseType.BadRequest,
                     Resources.InvalidInputeMessage);
 
-            var dataGroupId = await _storHandler.StoreDataSet(graphName, userName);
+            var dataGroupId = await _storHandler.StoreDataSet(graphName);
             if (dataGroupId == -1)
                 return new ServiceResponse<string>(string.Empty, ApiResponseType.BadRequest,
                     Resources.InvalidInputeMessage);

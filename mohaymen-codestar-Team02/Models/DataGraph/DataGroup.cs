@@ -12,6 +12,10 @@ public class DataGroup
         Name = name;
         UserId = userId;
     }
+    public DataGroup(string name)
+    {
+        Name = name;
+    }
 
     public DataGroup()
     {

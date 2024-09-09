@@ -5,6 +5,10 @@ namespace mohaymen_codestar_Team02.Models.EdgeEAV;
 
 public class EdgeAttribute
 {
+    public EdgeAttribute()
+    {
+        
+    }
     public EdgeAttribute(string name, long edgeEntityId)
     {
         Name = name;

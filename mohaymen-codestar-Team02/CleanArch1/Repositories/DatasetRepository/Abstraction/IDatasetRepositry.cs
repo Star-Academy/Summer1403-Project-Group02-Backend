@@ -8,4 +8,5 @@ public interface IDatasetRepositry
     Task<DataGroup> GetSingleDataset(long id);
     Task<DataGroup> AddDataset(DataGroup dataset);
     Task DeleteDataset(long id);
+    Task<bool> DatasetExists(long datasetId);
 }

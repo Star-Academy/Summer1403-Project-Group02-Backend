@@ -15,6 +15,14 @@ public class DatasetRepository : IDatasetRepositry
         _serviceProvider = serviceProvider;
     }
 
+    public async Task<bool> DatasetExists(long datasetId)
+    {
+        var scope = _serviceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+        return await context.DataSets
+            .AnyAsync(ds => ds.DataGroupId == datasetId);
+    }
 
     public async Task<DataGroup> AddDataset(DataGroup dataset)
     {
@@ -44,7 +52,7 @@ public class DatasetRepository : IDatasetRepositry
             .Include(ds => ds.VertexEntity).ThenInclude(ve => ve.VertexAttributes)
             .Include(ds => ds.EdgeEntity).ThenInclude(ee => ee.EdgeAttributes).FirstOrDefaultAsync();
     }
-    
+
     public Task DeleteDataset(long id)
     {
         throw new NotImplementedException();

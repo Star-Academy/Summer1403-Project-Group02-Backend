@@ -19,16 +19,14 @@ public class StoreDataService
     public IEdageStorer EdageStorer { get; set; }
     public IVertexStorer VertexStorer { get; set; }
 
-    public async Task<long> StoreDataSet(string? nameData, string userName)
+    public async Task<long> StoreDataSet(string? nameData)
     {
         using var scope = _serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         try
         {
             if (string.IsNullOrEmpty(nameData)) return -1;
-            var user = context.Users.SingleOrDefault(u => u.Username.ToLower() == userName.ToLower());
-            if (user == null) throw new NullReferenceException(Resources.UserNotFoundMessage);
-            var setData = new DataGroup(nameData, user.UserId);
+            var setData = new DataGroup(nameData);
             await context.DataSets.AddAsync(setData);
             await context.SaveChangesAsync();
             return setData.DataGroupId;
