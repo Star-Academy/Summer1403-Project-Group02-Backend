@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using mohaymen_codestar_Team02.Data;
-using mohaymen_codestar_Team02.Dto.GraphDTO;
 using mohaymen_codestar_Team02.Models.VertexEAV;
-using mohaymen_codestar_Team02.Services;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Repositories.IVertexRepository;
 
@@ -14,7 +12,7 @@ public class VertexRepository : IEdgeRepository.Abstraction.IVertexRepository
     {
         _serviceProvider = serviceProvider;
     }
-
+    
     public async Task<IEnumerable<IGrouping<string, VertexValue>>> GetDatasetVertices(long dataSetId)
     {
         using var scope = _serviceProvider.CreateScope();
@@ -27,4 +25,5 @@ public class VertexRepository : IEdgeRepository.Abstraction.IVertexRepository
         return vertexEntity.VertexAttributes.Select(a => a.VertexValues).SelectMany(v => v)
             .GroupBy(v => v.ObjectId);
     }
+
 }
