@@ -1,223 +1,152 @@
+using AutoMapper;
 using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
+using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
 using UpdateUserDto = mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos.UpdateUserDto;
+using mohaymen_codestar_Team02.Data;
+using mohaymen_codestar_Team02.Services;
+using mohaymen_codestar_Team02.Services.CookieService;
+using mohaymen_codestar_Team02.Services.PasswordHandller;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Services.UserService;
 
 public class UserService : IUserService
 {
-    
-    /*
-         public async Task<ServiceResponse<IEnumerable<GetUserDto>?>> GetUsersPaginated(int pageNumber)
+    private readonly ICookieService _cookieService;
+    private ITokenService _tokenService;
+    private IUserRepository _userRepository;
+    private readonly IMapper _mapper;
+    private IPasswordService _passwordService;
+
+    public UserService(ICookieService cookieService, ITokenService tokenService, IUserRepository userRepository,
+        IMapper mapper, IPasswordService passwordService)
+    {
+        _cookieService = cookieService;
+        _tokenService = tokenService;
+        _userRepository = userRepository;
+        _mapper = mapper;
+        _passwordService = passwordService;
+    }
+
+    public async Task<ServiceResponse<List<GetUserDto>?>> GetUsersPaginated(int pageNumber)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
-            return new ServiceResponse<IEnumerable<GetUserDto>?>(null, ApiResponseType.Unauthorized,
+            return new ServiceResponse<List<GetUserDto>?>(null, ApiResponseType.Unauthorized,
                 Resources.UnauthorizedMessage);
 
         var adminId = _tokenService.GetUserId();
-        var admin = await GetUser(adminId);
+        var admin = await _userRepository.GetUserById(long.Parse(adminId));
         if (admin is null)
-            return new ServiceResponse<IEnumerable<GetUserDto>?>(null, ApiResponseType.BadRequest,
+            return new ServiceResponse<List<GetUserDto>?>(null, ApiResponseType.BadRequest,
                 Resources.UserNotFoundMessage);
 
         var users = await _userRepository.GetUserPaginated(pageNumber);
 
         var usersDto = users.Select(u => _mapper.Map<GetUserDto>(u)).ToList();
-        return new ServiceResponse<IEnumerable<GetUserDto>?>(usersDto, ApiResponseType.Success,
+        return new ServiceResponse<List<GetUserDto>?>(usersDto, ApiResponseType.Success,
             Resources.UserRetrievedMassage);
     }
 
-    public async Task<ServiceResponse<GetUserDto?>> GetUser(string? username)
+    public async Task<ServiceResponse<GetUserDto>> GetSingleUser(long userId)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
 
         var adminId = _tokenService.GetUserId();
-        var admin = await GetUser(adminId);
+        var admin = await _userRepository.GetUserById(long.Parse(adminId));
         if (admin is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
 
-        var user = await GetUser(username);
+        var user = await _userRepository.GetUserById(userId);
         if (user is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
 
         var userDto = _mapper.Map<GetUserDto>(user);
-        return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success, Resources.UserRetrievedMassage);
-
+        return new ServiceResponse<GetUserDto>(userDto, ApiResponseType.Success, Resources.UserRetrievedMassage);
     }
 
-    public async Task<ServiceResponse<GetUserDto?>> GetUser(long? userId)
+    public async Task<ServiceResponse<GetUserDto?>> DeleteUser(long userId)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
 
         var adminId = _tokenService.GetUserId();
-        var admin = await GetUser(adminId);
+        var admin = await _userRepository.GetUserById(long.Parse(adminId));
         if (admin is null)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
 
-        var user = await GetUser(userId);
-        if (user is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
-
-        var userDto = _mapper.Map<GetUserDto>(user);
-        return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success, Resources.UserRetrievedMassage);
-
-    }
-
-    public async Task<ServiceResponse<GetUserDto?>> DeleteUser(User user)
-    {
-        var token = _cookieService.GetCookieValue();
-        if (string.IsNullOrEmpty(token))
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
-
-        var adminId = _tokenService.GetUserId();
-        var admin = await _userRepository.GetUserById(adminId);
-        if (admin is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
-
-        var foundUser = await _userRepository.GetUserByUsername(user.Username);
+        var foundUser = await _userRepository.GetUserById(userId);
         if (foundUser is null)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
 
-        if (user.Username == admin.Username)
+        if (foundUser.Username == admin.Username)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
                 Resources.CanNotDeleteYourselfMessage);
 
         await _userRepository.DeleteUser(foundUser.UserId); // todo
-        
+
         var userDto = _mapper.Map<GetUserDto>(foundUser);
         return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success,
             Resources.UserDeletionSuccessfulMessage);
     }
 
-    public async Task<ServiceResponse<GetUserDto?>> UpdateUser(User user)
+    public async Task<ServiceResponse<GetUserDto?>> UpdateUser(UpdateUserDto updateUserDto, long userId)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
 
         var adminId = _tokenService.GetUserId();
-        var admin = await _userRepository.GetUserById(adminId);
+        var admin = await _userRepository.GetUserById(long.Parse(adminId));
         if (admin is null)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
 
-        var foundUser = await GetUser(user.Username);
+        var foundUser = await _userRepository.GetUserById(userId);
         if (foundUser is null)
             return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
 
-        _userRepository.UpdateUser(user);
-        
+        var user = new User()
+        {
+            Username = foundUser.Username,
+            FirstName = updateUserDto.FirstName,
+            LastName = updateUserDto.LastName,
+            Email = updateUserDto.Email,
+            UserRoles = foundUser.UserRoles
+        };
+        await _userRepository.UpdateUser(user);
+
         var userDto = _mapper.Map<GetUserDto>(user);
         return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success,
             Resources.UserUpdateSuccessfulyMessage);
     }
 
-    public async Task<ServiceResponse<IEnumerable<GetRoleDto>>> GetAllRoles()
-    {
-        var roles1 = await _roleRepository.GetAllRoles();
-        var dtos = roles1.Select(r => _mapper.Map<GetRoleDto>(r));
-        return new ServiceResponse<IEnumerable<GetRoleDto>>(dtos, ApiResponseType.Success, Resources.UsersRetrievedMassage);
-    }
-
-    public async Task<ServiceResponse<GetUserDto?>> AddUserRole(User user, Role role)
+    public async Task<ServiceResponse<GetUserDto>> ChangePassword(ChangePasswordDto changePasswordDto)
     {
         var token = _cookieService.GetCookieValue();
         if (string.IsNullOrEmpty(token))
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
 
-        var adminId = _tokenService.GetUserId();
-        var admin = await _userRepository.GetUserById(adminId);
-        if (admin is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
+        var userId = _tokenService.GetUserId();
+        var user = await _userRepository.GetUserById(long.Parse(userId));
 
-        var foundUser = await _userRepository.GetUserByUsername(user.Username);
-        if (foundUser is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
+        if (user is null)
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
 
-        var foundRole = await _roleRepository.GetRole(role.RoleType);
-        if (foundRole is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.RoleNotFoundMessage);
+        if (!_passwordService.VerifyPasswordHash(changePasswordDto.PreviousPassword, user.PasswordHash, user.Salt))
+            return new ServiceResponse<GetUserDto>(null, ApiResponseType.BadRequest, Resources.WrongPasswordMessage);
 
-        if (await _userRoleRepository.GetUserRole(foundUser.UserId, foundRole.RoleId) is not null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
-                Resources.RoleAlreadyAssignedMessage);
+        _passwordService.CreatePasswordHash(changePasswordDto.NewPassword, out var passwordHash, out var passwordSalt);
+        user.PasswordHash = passwordHash;
+        user.Salt = passwordSalt;
 
-        var userRole = new UserRole
-        {
-            RoleId = foundRole.RoleId,
-            UserId = foundUser.UserId
-        };
+        await _userRepository.UpdateUser(user);
 
-        await _userRoleRepository.AddUserRole(userRole);
-        
-        var userDto = _mapper.Map<GetUserDto>(foundUser);
-
-        return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success,
-            Resources.RoleAddedSuccessfulyMassage);
-    }
-
-    public async Task<ServiceResponse<GetUserDto?>> DeleteUserRole(User user, Role role)
-    {
-        var token = _cookieService.GetCookieValue();
-        if (string.IsNullOrEmpty(token))
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.Unauthorized, Resources.UnauthorizedMessage);
-
-        var adminId = _tokenService.GetUserId();
-        var admin = await _userRepository.GetUserById(adminId);
-        if (admin is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.UserNotFoundMessage);
-
-        var foundUser = await _userRepository.GetUserByUsername(user.Username);
-        if (foundUser is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.NotFound, Resources.UserNotFoundMessage);
-
-        var foundRole = await _roleRepository.GetRole(role.RoleType);
-        if (foundRole is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest, Resources.RoleNotFoundMessage);
-
-
-        var userRole = await _userRoleRepository.GetUserRole(foundUser.UserId, foundRole.RoleId);
-        if (userRole is null)
-            return new ServiceResponse<GetUserDto?>(null, ApiResponseType.BadRequest,
-                Resources.DontHaveThisRoleMessage);
-
-        await _userRoleRepository.DeleteUserRole(userRole.UserId, userRole.RoleId);
-        
-        var userDto = _mapper.Map<GetUserDto>(foundUser);
-
-        return new ServiceResponse<GetUserDto?>(userDto, ApiResponseType.Success,
-            Resources.RoleRemovedSuccessfullyMessage);
-
-    }
-     */
-    public Task<ServiceResponse<List<GetUserDto>>> GetUsersPaginated(int pageNumber)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ServiceResponse<GetUserDto>> GetSingleUser(long userId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ServiceResponse<GetUserDto?>> DeleteUser(long userId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ServiceResponse<GetUserDto?>> UpdateUser(UpdateUserDto updateUserDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ServiceResponse<GetUserDto>> ChangePassword(ChangePasswordDto changePasswordDto)
-    {
-        throw new NotImplementedException();
+        return new ServiceResponse<GetUserDto>(null, ApiResponseType.Success,
+            Resources.PasswordChangedSuccessfulyMessage);
     }
 }

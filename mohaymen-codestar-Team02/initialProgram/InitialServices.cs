@@ -15,6 +15,10 @@ using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRoleRepository;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRoleRepository.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.DatasetService;
+using mohaymen_codestar_Team02.CleanArch1.Services.RoleService;
+using mohaymen_codestar_Team02.CleanArch1.Services.RoleService.Abstraction;
+using mohaymen_codestar_Team02.CleanArch1.Services.UserService;
+using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 using mohaymen_codestar_Team02.Data;
 using mohaymen_codestar_Team02.Mapper;
 using mohaymen_codestar_Team02.Models;
@@ -59,6 +63,8 @@ public class InitialServices
 
         services
             .AddScoped<IAuthenticateionService, AuthenticationService>()
+            .AddScoped<IUserService , UserService>()
+            .AddScoped<IRoleService , RoleService>()
             .AddScoped<ITokenService, TokenService>()
             .AddScoped<ICookieService, CookieService>()
             .AddScoped<IPasswordService, PasswordService>()
