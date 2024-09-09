@@ -1,6 +1,4 @@
-using mohaymen_codestar_Team02.Models.VertexEAV;
-
-namespace mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset.Attributes;
+namespace mohaymen_codestar_Team02.Dtos.VertexDtos;
 
 public class GetVertexAttributeDto
 {

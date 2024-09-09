@@ -3,7 +3,7 @@ using Ganss.Xss;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Newtonsoft.Json;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Middlewares;
+namespace mohaymen_codestar_Team02.Middlewares;
 
 public class SanitizationMiddleware
 {

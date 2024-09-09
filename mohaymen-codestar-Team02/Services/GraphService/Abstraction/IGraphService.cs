@@ -1,7 +1,6 @@
 using mohaymen_codestar_Team02.Models;
-using QuikGraph;
 
-namespace mohaymen_codestar_Team02.Services;
+namespace mohaymen_codestar_Team02.Services.GraphService.Abstraction;
 
 public interface IGraphService
 {

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
-using mohaymen_codestar_Team02.CleanArch1.Services.DatasetService.Abstraction;
-using mohaymen_codestar_Team02.Dto;
+using mohaymen_codestar_Team02.Dtos.Dataset;
+using mohaymen_codestar_Team02.Dtos.GraphDtos;
+using mohaymen_codestar_Team02.Services.DatasetService.Abstraction;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Controllers.DatasetController;
+namespace mohaymen_codestar_Team02.Controllers.DatasetController;
 
 public class DatasetController : ControllerBase
 {

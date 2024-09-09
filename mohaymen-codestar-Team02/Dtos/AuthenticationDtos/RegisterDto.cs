@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
+namespace mohaymen_codestar_Team02.Dtos.AuthenticationDtos;
 
 public class RegisterDto
 {

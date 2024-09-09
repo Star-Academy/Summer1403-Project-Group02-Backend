@@ -1,5 +1,4 @@
-using mohaymen_codestar_Team02.Dto;
-using mohaymen_codestar_Team02.Dto.GraphDTO;
+using mohaymen_codestar_Team02.Dtos.Extra.GraphDto;
 using mohaymen_codestar_Team02.Models;
 using QuikGraph;
 

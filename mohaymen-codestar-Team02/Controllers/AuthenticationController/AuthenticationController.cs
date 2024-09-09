@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.AuthenticationDtos;
 using mohaymen_codestar_Team02.CleanArch1.Services.AuthenticationService.Abstraction;
+using mohaymen_codestar_Team02.Dtos.AuthenticationDtos;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Controllers.AuthenticationController;
+namespace mohaymen_codestar_Team02.Controllers.AuthenticationController;
 
 public class AuthenticationController : ControllerBase
 {

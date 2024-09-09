@@ -1,7 +1,7 @@
-using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
-using mohaymen_codestar_Team02.Dto.User;
+using mohaymen_codestar_Team02.Dtos.Extra.UserDto;
+using mohaymen_codestar_Team02.Dtos.UserDtos;
 using mohaymen_codestar_Team02.Models;
-using UpdateUserDto = mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos.UpdateUserDto;
+using UpdateUserDto = mohaymen_codestar_Team02.Dtos.UserDtos.UpdateUserDto;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
 

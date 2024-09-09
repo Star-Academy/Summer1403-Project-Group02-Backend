@@ -1,5 +1,6 @@
 using mohaymen_codestar_Team02.Models;
 using mohaymen_codestar_Team02.Services;
+using mohaymen_codestar_Team02.Services.GraphService.Abstraction;
 
 namespace mohaymen_codestar_Team02.CleanArch1.GraphService;
 
@@ -11,7 +12,8 @@ public class GraphService : IGraphService
     {
         var resEdges = new List<Edge>();
 
-        var dicVertices = vertices.GroupBy(x => x.Value[vertexIdentifierFieldName])
+        var dicVertices = vertices
+            .GroupBy(x => x.Value[vertexIdentifierFieldName])
             .ToDictionary(x => x.Key, x => x.ToList());
 
         var resVertices = vertices

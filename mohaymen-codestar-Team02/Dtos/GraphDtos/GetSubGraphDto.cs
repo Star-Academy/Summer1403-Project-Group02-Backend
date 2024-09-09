@@ -1,6 +1,6 @@
-namespace mohaymen_codestar_Team02.Dto;
+namespace mohaymen_codestar_Team02.Dtos.GraphDtos;
 
-public class GetSubGraphDto  // change name
+public class GetSubGraphDto 
 {
     public long DatasetId { get; set; }
     public string SourceIdentifier { get; set; }

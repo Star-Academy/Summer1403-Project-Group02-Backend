@@ -1,6 +1,4 @@
-using mohaymen_codestar_Team02.Models.VertexEAV;
-
-namespace mohaymen_codestar_Team02.Dto;
+namespace mohaymen_codestar_Team02.Dtos.VertexDtos;
 
 public class GetVertexEntityDto
 {

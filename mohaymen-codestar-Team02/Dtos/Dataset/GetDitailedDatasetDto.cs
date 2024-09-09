@@ -1,7 +1,7 @@
-using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset.Attributes;
-using mohaymen_codestar_Team02.Dto;
+using mohaymen_codestar_Team02.Dtos.EdgeDtos;
+using mohaymen_codestar_Team02.Dtos.VertexDtos;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
+namespace mohaymen_codestar_Team02.Dtos.Dataset;
 
 public class GetDitailedDatasetDto
 {

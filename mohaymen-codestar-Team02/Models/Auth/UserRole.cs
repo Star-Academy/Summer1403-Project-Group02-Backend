@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace mohaymen_codestar_Team02.Models;
+namespace mohaymen_codestar_Team02.Models.Auth;
 
 public class UserRole
 {

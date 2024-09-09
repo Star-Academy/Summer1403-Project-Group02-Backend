@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace mohaymen_codestar_Team02.Dto.UserDtos;
+namespace mohaymen_codestar_Team02.Dtos.Extra.UserDto;
 
 public class CreateUserDto
 {

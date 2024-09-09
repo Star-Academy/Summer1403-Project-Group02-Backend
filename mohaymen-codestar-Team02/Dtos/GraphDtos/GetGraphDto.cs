@@ -1,6 +1,6 @@
 using mohaymen_codestar_Team02.Models;
 
-namespace mohaymen_codestar_Team02.Dto.GraphDTO;
+namespace mohaymen_codestar_Team02.Dtos.GraphDtos;
 
 public class GetGraphDto
 {

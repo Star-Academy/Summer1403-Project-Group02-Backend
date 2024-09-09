@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using mohaymen_codestar_Team02.Models;
+using mohaymen_codestar_Team02.Models.Auth;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Models.VertexEAV;
 

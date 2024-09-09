@@ -1,7 +1,7 @@
-using mohaymen_codestar_Team02.Models.EdgeEAV;
-using mohaymen_codestar_Team02.Models.VertexEAV;
+using mohaymen_codestar_Team02.Dtos.EdgeDtos;
+using mohaymen_codestar_Team02.Dtos.VertexDtos;
 
-namespace mohaymen_codestar_Team02.Dto;
+namespace mohaymen_codestar_Team02.Dtos.Extra;
 
 public class GetDataGroupDto
 {

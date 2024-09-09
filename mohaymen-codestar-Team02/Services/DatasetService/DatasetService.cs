@@ -1,18 +1,15 @@
 using AutoMapper;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
-using mohaymen_codestar_Team02.CleanArch1.Services.DatasetService.Abstraction;
 using mohaymen_codestar_Team02.Data;
-using mohaymen_codestar_Team02.Dto;
-using mohaymen_codestar_Team02.Dto.GraphDTO;
+using mohaymen_codestar_Team02.Dtos.Dataset;
+using mohaymen_codestar_Team02.Dtos.Extra.GraphDto;
+using mohaymen_codestar_Team02.Dtos.GraphDtos;
 using mohaymen_codestar_Team02.Models;
-using mohaymen_codestar_Team02.Services;
-using mohaymen_codestar_Team02.Services.CookieService;
-using mohaymen_codestar_Team02.Services.FileReaderService;
-using mohaymen_codestar_Team02.Services.StoreData.Abstraction;
+using mohaymen_codestar_Team02.Services.DatasetService.Abstraction;
+using mohaymen_codestar_Team02.Services.GraphService.Abstraction;
 using mohaymen_codestar_Team02.Services.VertexService.Abstraction;
 using WebApplication15.Repositories;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Services.DatasetService;
+namespace mohaymen_codestar_Team02.Services.DatasetService;
 
 public class DatasetService : IDatasetService
 {

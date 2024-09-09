@@ -1,5 +1,5 @@
 using mohaymen_codestar_Team02.CleanArch1.Repositories.IEdgeRepository.Abstraction;
-using mohaymen_codestar_Team02.Dto.GraphDTO;
+using mohaymen_codestar_Team02.Dtos.Extra.GraphDto;
 using mohaymen_codestar_Team02.Services.VertexService.Abstraction;
 
 namespace mohaymen_codestar_Team02.Services.VertexService;
@@ -18,8 +18,6 @@ public class VertexService : IVertexService
     {
         var vertexRecords = await _vertexRepository.GetDatasetVertices(dataSetId);
 
-        try
-        {
             var validVertexRecords = vertexRecords
                 .Where(group =>
                     vertexAttributeVales.All(attr =>
@@ -29,11 +27,6 @@ public class VertexService : IVertexService
                 x => x.ToDictionary(g => g.VertexAttribute.Name, g => g.StringValue));
 
             return res;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception();
-        }
     }
 
 

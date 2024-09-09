@@ -1,11 +1,12 @@
 using AutoMapper;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
 using mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
 using mohaymen_codestar_Team02.CleanArch1.Services.UserService.Abstraction;
-using mohaymen_codestar_Team02.Dto.User;
 using mohaymen_codestar_Team02.Models;
-using UpdateUserDto = mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos.UpdateUserDto;
+using UpdateUserDto = mohaymen_codestar_Team02.Dtos.UserDtos.UpdateUserDto;
 using mohaymen_codestar_Team02.Data;
+using mohaymen_codestar_Team02.Dtos.Extra.UserDto;
+using mohaymen_codestar_Team02.Dtos.UserDtos;
+using mohaymen_codestar_Team02.Models.Auth;
 using mohaymen_codestar_Team02.Services;
 using mohaymen_codestar_Team02.Services.CookieService;
 using mohaymen_codestar_Team02.Services.PasswordHandller;

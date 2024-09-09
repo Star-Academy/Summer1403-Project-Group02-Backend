@@ -1,4 +1,4 @@
-namespace mohaymen_codestar_Team02.CleanArch1.Dtos.UserDtos;
+namespace mohaymen_codestar_Team02.Dtos.UserDtos;
 
 public class UpdateUserDto
 {

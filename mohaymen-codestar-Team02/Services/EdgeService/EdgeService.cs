@@ -1,5 +1,5 @@
 using mohaymen_codestar_Team02.CleanArch1.Repositories.EdgeRepository.Abstraction;
-using mohaymen_codestar_Team02.Dto.GraphDTO;
+using mohaymen_codestar_Team02.Dtos.Extra.GraphDto;
 
 namespace mohaymen_codestar_Team02.Services.EdgeService;
 

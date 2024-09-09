@@ -1,4 +1,4 @@
-namespace mohaymen_codestar_Team02.Dto.User;
+namespace mohaymen_codestar_Team02.Dtos.Extra.UserDto;
 
 public class UpdateUserDto
 {

@@ -1,15 +1,16 @@
 using AutoMapper;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset;
-using mohaymen_codestar_Team02.CleanArch1.Dtos.Dataset.Attributes;
-using mohaymen_codestar_Team02.Dto;
-using mohaymen_codestar_Team02.Dto.Role;
-using mohaymen_codestar_Team02.Dto.User;
-using mohaymen_codestar_Team02.Dto.UserDtos;
+using mohaymen_codestar_Team02.Dtos.Dataset;
+using mohaymen_codestar_Team02.Dtos.EdgeDtos;
+using mohaymen_codestar_Team02.Dtos.Extra;
+using mohaymen_codestar_Team02.Dtos.Extra.RoleDto;
+using mohaymen_codestar_Team02.Dtos.Extra.UserDto;
+using mohaymen_codestar_Team02.Dtos.VertexDtos;
 using mohaymen_codestar_Team02.Models;
+using mohaymen_codestar_Team02.Models.Auth;
 using mohaymen_codestar_Team02.Models.EdgeEAV;
 using mohaymen_codestar_Team02.Models.VertexEAV;
 
-namespace mohaymen_codestar_Team02.CleanArch1.Mapper;
+namespace mohaymen_codestar_Team02.Mapper;
 
 public class AutoMapperProfile : Profile
 {

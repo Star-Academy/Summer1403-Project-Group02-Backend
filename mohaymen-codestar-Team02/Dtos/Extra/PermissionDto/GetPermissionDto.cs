@@ -1,6 +1,6 @@
-namespace mohaymen_codestar_Team02.Dto.Permission;
+using mohaymen_codestar_Team02.Models;
 
-using Models;
+namespace mohaymen_codestar_Team02.Dtos.Extra.PermissionDto;
 
 public class GetPermissionDto
 {

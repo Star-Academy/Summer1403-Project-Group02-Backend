@@ -1,4 +1,5 @@
 using mohaymen_codestar_Team02.Models;
+using mohaymen_codestar_Team02.Models.Auth;
 
 namespace mohaymen_codestar_Team02.CleanArch1.Repositories.UserRepository.Abstraction;
 
